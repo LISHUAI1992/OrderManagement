@@ -39,12 +39,24 @@
     <ClCompile Include="MySQLInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="OrderCore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OrderEvent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="OrderManagement.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="MySQLInfo.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="OrderCore.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="OrderEvent.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
