@@ -214,8 +214,11 @@ void OrderManagement::buildAddOrderSql(const ExcelRow& rowData, QString& sql)
 	addValue(tempSql, tempValues, rowData.at(54), "b_pay_confirmaccount");
 	addValue(tempSql, tempValues, rowData.at(55), "o_buyer_envelope");
 	addValue(tempSql, tempValues, rowData.at(56), "o_mainorder_indexcode");
-	addValue(tempSql, tempValues, rowData.at(57), "o_ext1_info");
-	addValue(tempSql, tempValues, rowData.at(58), "o_ext2_info");
+	if (rowData.size() > 57)
+	{
+		addValue(tempSql, tempValues, rowData.at(57), "o_ext1_info");
+		addValue(tempSql, tempValues, rowData.at(58), "o_ext2_info");
+	}
 
 	tempSql += ", createtime";
 	tempValues += ", NOW()";
@@ -296,8 +299,11 @@ void OrderManagement::buildUpdataOrderSql(const ExcelRow& rowData, QString& sql)
 	updataValue(tempSql, rowData.at(54), "b_pay_confirmaccount");
 	updataValue(tempSql, rowData.at(55), "o_buyer_envelope");
 	updataValue(tempSql, rowData.at(56), "o_mainorder_indexcode");
-	updataValue(tempSql, rowData.at(57), "o_ext1_info");
-	updataValue(tempSql, rowData.at(58), "o_ext2_info");
+	if (rowData.size() > 57)
+	{
+		updataValue(tempSql, rowData.at(57), "o_ext1_info");
+		updataValue(tempSql, rowData.at(58), "o_ext2_info");
+	}
 
 	tempSql += ", `updatatime` = NOW()";
 	tempSql += ", `versions` = `versions`+1";
@@ -329,6 +335,7 @@ void OrderManagement::addValue(QString& sql, QString& values, const QVariant& va
 		QString tempData = var.toString();
 		if (tempData != "null" && !tempData.isEmpty())
 		{
+			tempData.replace("'","");
 			sql += ", " + marke;
 			values += QString(", '%1'").arg(tempData);
 		}
