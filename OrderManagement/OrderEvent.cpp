@@ -1,7 +1,6 @@
 #include "OrderEvent.h"
 
-OrderEvent::OrderEvent(QObject *parent)
-	: QObject(parent)
+OrderEvent::OrderEvent(QObject *parent /*= Q_NULLPTR*/) : QObject(parent)
 {
 }
 

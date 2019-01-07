@@ -1,9 +1,10 @@
 #include "OrderCore.h"
 
-OrderCore::OrderCore(QObject *parent /*= Q_NULLPTR */) : QObject(parent)
+OrderCore::OrderCore(OrderEvent* event, QObject *parent /*= Q_NULLPTR */) : QObject(parent)
 	, m_mySqlDB(NULL)
 	, m_pExcelAxObjet(NULL)
 	, m_pSqlThread(NULL)
+	, m_pOrderEvent(event)
 {
 	m_pExcelAxObjet = new QAxObject("Excel.Application");
 	m_mySqlDB = new QSqlDatabase(QSqlDatabase::addDatabase("QMYSQL"));
@@ -12,6 +13,7 @@ OrderCore::OrderCore(QObject *parent /*= Q_NULLPTR */) : QObject(parent)
 
 OrderCore::~OrderCore()
 {
+	//m_pSqlThread->exit();
 	SAFEDELETE(m_pSqlThread);
 	SAFEDELETE(m_pExcelAxObjet);
 	SAFEDELETE(m_mySqlDB);
@@ -64,15 +66,27 @@ void OrderCore::UpdataOrderTread()
 		return;
 	QSqlQuery query(*m_mySqlDB);
 	QString sql = "";
+	QString restul;
+	bool bRet = false;
 	for (size_t i = 1; i < m_excelListData.size(); i++)
 	{
 		sql = "";
+		restul = "";
 		if (IsExistOrder(m_excelListData.at(i).at(0).toString()))
 			BuildUpdataOrderSql(m_excelListData.at(i), sql);
 		else
 			BuildAddOrderSql(m_excelListData.at(i), sql);
 		if (!sql.isEmpty())
-			query.exec(sql);
+			bRet = query.exec(sql);
+		if (bRet)
+		{
+			restul = QString(TU("第%1条数据导入成功")).arg(i);
+		}
+		else
+		{
+			restul = QString(TU("第%1条数据导入失败")).arg(i);
+		}
+		m_pOrderEvent->SetResult(restul);
 	}
 }
 
@@ -82,12 +96,24 @@ void OrderCore::UpdataCommodityTread()
 		return;
 	QSqlQuery query(*m_mySqlDB);
 	QString sql = "";
+	QString restul;
+	bool bRet = false;
 	for (size_t i = 1; i < m_excelListData.size(); i++)
 	{
 		sql = "";
+		restul = "";
 		BuildAddCommSql(m_excelListData.at(i), sql);
 		if (!sql.isEmpty())
-			query.exec(sql);
+			bRet = query.exec(sql);
+		if (bRet)
+		{
+			restul = QString(TU("第%1条数据导入成功")).arg(i);
+		}
+		else
+		{
+			restul = QString(TU("第%1条数据导入失败")).arg(i);
+		}
+		m_pOrderEvent->SetResult(restul);
 	}
 }
 

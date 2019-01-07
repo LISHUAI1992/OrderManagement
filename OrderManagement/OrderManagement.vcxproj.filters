@@ -45,6 +45,9 @@
     <ClCompile Include="OrderEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ImportWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="OrderManagement.h">
@@ -59,12 +62,18 @@
     <QtMoc Include="OrderEvent.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="ImportWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="OrderManagement.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="MySQLInfo.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ImportWidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

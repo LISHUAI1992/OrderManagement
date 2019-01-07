@@ -5,7 +5,9 @@
 #include "MySQLInfo.h"
 #include "OrderCore.h"
 #include "OrderEvent.h"
+#include "ImportWidget.h"
 
+class OrderEvent;
 
 class OrderManagement : public QMainWindow
 {
@@ -27,4 +29,6 @@ private:
 	Ui::OrderManagementClass ui;
 	MySQLInfo* m_mySqlInfo;
 	OrderCore* m_pCore;
+	OrderEvent* m_pEvent;
+	ImportWidget* m_pImportData;
 };

@@ -11,8 +11,17 @@ class OrderEvent : public QObject
 	Q_OBJECT
 
 public:
-	OrderEvent(QObject *parent);
+	OrderEvent(QObject *parent = Q_NULLPTR);
 	~OrderEvent();
+
+	void SetResult(const QString &result)
+	{
+		emit ExeSqlResult(result);
+	}
+
+signals:
+	void ExeSqlResult(const QString &result);
+
 };
 
 class MySqlExThread : public QThread

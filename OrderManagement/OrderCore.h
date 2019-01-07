@@ -5,13 +5,14 @@
 #include "OrderEvent.h"
 
 class MySqlExThread;
+class OrderEvent;
 
 class OrderCore : public QObject
 {
 	Q_OBJECT
 
 public:
-	OrderCore(QObject *parent = Q_NULLPTR );
+	OrderCore(OrderEvent* event, QObject *parent = Q_NULLPTR );
 	~OrderCore();
 
 	void ReadExcelData(const QString& excelFilePath, ExcelList& excelList);
@@ -49,4 +50,5 @@ private:
 	QSqlDatabase*   m_mySqlDB;
 	ExcelList       m_excelListData;
 	MySqlExThread*  m_pSqlThread;
+	OrderEvent*     m_pOrderEvent;
 };

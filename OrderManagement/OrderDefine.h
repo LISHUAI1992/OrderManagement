@@ -12,6 +12,8 @@
 
 #define TU(s) QString::fromLocal8Bit(s)
 
+#define SAFENEW   new (std::nothrow) 
+
 #define SAFEDELETE(s) {if(s != NULL){delete s;s = NULL;}}
 
 //#define MYSQL_ORDER_ADD_THREAD      0
